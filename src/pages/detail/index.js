@@ -8,6 +8,9 @@ export default class Detail extends PureComponent {
       backgroundColor: '#4cb4e7',
     },
   };
+  componentWillUnmount() {
+    console.log('detail componentWillUnmount');
+  }
   render() {
     return (
       <Container>

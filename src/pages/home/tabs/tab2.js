@@ -3,9 +3,15 @@ import styled from 'styled-components';
 
 export default class Tab2 extends PureComponent {
   render() {
+    const {navigation} = this.props;
     return (
       <Container>
-        <Text> Tab2 page</Text>
+        <Text
+          onPress={() => {
+            navigation.navigate('mine');
+          }}>
+          Tab2 page
+        </Text>
       </Container>
     );
   }
