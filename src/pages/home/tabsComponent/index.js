@@ -1,16 +1,18 @@
 import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 
-export default class Tab1 extends PureComponent {
+export default class TabComponent extends PureComponent {
   render() {
-    const {navigation} = this.props;
+    const {navigation, content, tabname} = this.props;
     return (
       <Container>
         <Text
           onPress={() => {
-            navigation.navigate('detail');
+            navigation.navigate('detail', {
+              tabname,
+            });
           }}>
-          Tab1 page
+          {content}
         </Text>
       </Container>
     );

@@ -12,9 +12,11 @@ export default class Detail extends PureComponent {
     console.log('detail componentWillUnmount');
   }
   render() {
+    const {navigation} = this.props;
+
     return (
       <Container>
-        <Text> Detail InComponent </Text>
+        <Text onPress={() => navigation.goBack()}> Detail InComponent </Text>
       </Container>
     );
   }
