@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default class Mine extends PureComponent {
   static navigationOptions = {
-    header: null,
+    headerShown: false,
   };
   render() {
     return (
