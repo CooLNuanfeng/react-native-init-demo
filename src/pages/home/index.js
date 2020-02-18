@@ -2,6 +2,7 @@ import React from 'react';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
 import TabComponent from './tabsComponent';
+import styled from 'styled-components';
 
 const TabArrJson = [
   {
@@ -30,19 +31,38 @@ const createRouterConfig = () => {
     );
     routerConfig[item.tab].navigationOptions = {
       tabBarLabel: item.tabname,
+      headerShown: false,
     };
   });
 };
 createRouterConfig();
 
-const Home = createMaterialTopTabNavigator(routerConfig, {
+const TabContainer = createMaterialTopTabNavigator(routerConfig, {
   // initialRouteName: 'tab1',
-  navigationOptions: {
-    title: '首页',
-    headerStyle: {
-      backgroundColor: '#4cb4e7',
-    },
-  },
 });
 
-export default Home;
+export default class Home extends React.PureComponent {
+  static navigationOptions = {
+    title: '首页',
+    headerShown: false,
+  };
+  render() {
+    return (
+      <SafeAreaView>
+        <HeaderTop />
+        <TabContainer {...this.props} />
+      </SafeAreaView>
+    );
+  }
+}
+
+Home.router = TabContainer.router;
+
+const SafeAreaView = styled.SafeAreaView`
+  flex: 1;
+`;
+
+const HeaderTop = styled.View`
+  height: 30px;
+  background: #4cb4e7;
+`;
