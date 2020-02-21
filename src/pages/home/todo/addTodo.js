@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import styled from 'styled-components';
-
+import Toast from 'react-native-tiny-toast';
 export default class AddTodo extends PureComponent {
   constructor(props) {
     super(props);
@@ -17,7 +17,7 @@ export default class AddTodo extends PureComponent {
           <HeaderText>Todos</HeaderText>
         </Title>
         <Container>
-          <TextInput onChangeText={this.inputChange} />
+          <TextInput value={this.state.text} onChangeText={this.inputChange} />
           <TouchableOpacity onPress={this.addTodo}>
             <Text>Add</Text>
           </TouchableOpacity>
@@ -31,9 +31,17 @@ export default class AddTodo extends PureComponent {
     });
   }
   addTodo() {
-    this.props.doAdd({
-      title: this.state.text,
-    });
+    let toast = Toast.showLoading('Loading...');
+    this.props
+      .doAdd({
+        title: this.state.text,
+      })
+      .then(() => {
+        this.setState({
+          text: '',
+        });
+        Toast.hide(toast);
+      });
   }
 }
 
