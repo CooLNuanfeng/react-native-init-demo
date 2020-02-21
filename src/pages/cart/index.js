@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import {Button} from 'react-native';
 import styled from 'styled-components';
 
 export default class Cart extends PureComponent {
@@ -7,6 +8,14 @@ export default class Cart extends PureComponent {
     headerStyle: {
       backgroundColor: '#4cb4e7',
     },
+    headerTintColor: '#fff',
+    headerRight: () => (
+      <Button
+        onPress={() => alert('This is a button!')}
+        title="Info"
+        color="#fff"
+      />
+    ),
   };
   render() {
     return (

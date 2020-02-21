@@ -3,17 +3,20 @@ import styled from 'styled-components';
 
 export default class TabComponent extends PureComponent {
   render() {
-    const {navigation, content, tabname} = this.props;
+    const {navigation, content, tabname, component} = this.props;
     return (
       <Container>
-        <Text
-          onPress={() => {
-            navigation.navigate('detail', {
-              tabname,
-            });
-          }}>
-          {content}
-        </Text>
+        {content ? (
+          <Text
+            onPress={() => {
+              navigation.navigate('detail', {
+                tabname,
+              });
+            }}>
+            {content}
+          </Text>
+        ) : null}
+        {component ? component : null}
       </Container>
     );
   }
@@ -21,7 +24,6 @@ export default class TabComponent extends PureComponent {
 
 const Container = styled.View`
   flex: 1;
-  justify-content: center;
   align-items: center;
   background: #f5f5f5;
 `;

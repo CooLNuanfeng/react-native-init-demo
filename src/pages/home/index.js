@@ -4,6 +4,8 @@ import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import TabComponent from './tabsComponent';
 import styled from 'styled-components';
 
+import Todos from './todo';
+
 const TabArrJson = [
   {
     tab: 'tab1',
@@ -19,6 +21,12 @@ const TabArrJson = [
     tab: 'tab3',
     tabname: '收藏',
     content: 'tab3 page component',
+  },
+  {
+    tab: 'tab4',
+    tabname: 'TODO',
+    content: '',
+    component: <Todos />,
   },
 ];
 
@@ -46,19 +54,18 @@ export default class Home extends React.PureComponent {
     title: '首页',
     headerShown: false,
   };
+  static router = TabContainer.router;
   render() {
     return (
-      <SafeAreaView>
+      <HomeContainer>
         <HeaderTop />
         <TabContainer {...this.props} />
-      </SafeAreaView>
+      </HomeContainer>
     );
   }
 }
 
-Home.router = TabContainer.router;
-
-const SafeAreaView = styled.SafeAreaView`
+const HomeContainer = styled.View`
   flex: 1;
 `;
 
