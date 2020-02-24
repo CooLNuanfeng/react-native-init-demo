@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import styled from 'styled-components';
-import Toast from 'react-native-tiny-toast';
+
 export default class AddTodo extends PureComponent {
   constructor(props) {
     super(props);
@@ -31,7 +31,6 @@ export default class AddTodo extends PureComponent {
     });
   }
   addTodo() {
-    let toast = Toast.showLoading('Loading...');
     this.props
       .doAdd({
         title: this.state.text,
@@ -40,17 +39,9 @@ export default class AddTodo extends PureComponent {
         this.setState({
           text: '',
         });
-        Toast.hide(toast);
       });
   }
 }
-
-const Container = styled.View`
-  margin-top: 10px;
-  height: 40px;
-  padding: 0 10px;
-  flex-direction: row;
-`;
 
 const Title = styled.View`
   padding-top: 20px;
@@ -60,6 +51,14 @@ const Title = styled.View`
 
 const HeaderText = styled.Text`
   font-size: 20px;
+`;
+
+const Container = styled.View`
+  width: 100%;
+  margin-top: 10px;
+  height: 40px;
+  padding: 0 10px;
+  flex-direction: row;
 `;
 
 const TextInput = styled.TextInput`

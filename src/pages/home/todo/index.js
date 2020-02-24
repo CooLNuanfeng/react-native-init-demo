@@ -1,15 +1,20 @@
 import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {TouchableOpacity, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 
 import AddTodo from './addTodo';
 import IconWithBadge from '../../../components/IconWithBadge';
-import {getAllTodos, addTodoAction} from '../../../actions/todos';
+import {
+  getAllTodosAction,
+  addTodoAction,
+  deleteTodoAction,
+  updateTodoAction,
+} from '../../../actions/todos';
 
 class Todos extends PureComponent {
   componentDidMount() {
-    this.props.getAllTodos();
+    this.props.getAllTodosAction();
   }
   render() {
     let {todos} = this.props.todos;
@@ -20,26 +25,30 @@ class Todos extends PureComponent {
         <TodoContainer>
           {todos.map(item => {
             return (
-              <TouchableOpacity
+              <TodoItem
+                onPress={this.doChange.bind(this, item.id)}
                 key={item.id}
-                activeOpacity={0.8}
-                onPress={this.doChange}>
-                <TodoItem completed={item.completed}>
-                  <TodoText completed={item.completed}>{item.title}</TodoText>
-                  <IconWarp>
-                    <IconWithBadge name="delete" size={18} color="#fff" />
-                  </IconWarp>
-                </TodoItem>
-              </TouchableOpacity>
+                completed={item.completed}>
+                <TodoText completed={item.completed}>{item.title}</TodoText>
+                <IconWarp onPress={this.deleteTodo.bind(this, item.id)}>
+                  <IconWithBadge name="delete" size={18} color="#fff" />
+                </IconWarp>
+              </TodoItem>
             );
           })}
         </TodoContainer>
       </ScrollView>
     );
   }
-  doChange = () => {
-    console.log('doChange');
-  };
+  doChange(id) {
+    console.log('to doChange', id);
+    this.props.updateTodoAction(id);
+  }
+  deleteTodo(id, ev) {
+    console.log(id, 'id');
+    ev.stopPropagation();
+    this.props.deleteTodoAction(id);
+  }
 }
 
 const mapStateToProps = state => ({
@@ -47,8 +56,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getAllTodos,
+  getAllTodosAction,
   addTodoAction,
+  deleteTodoAction,
+  updateTodoAction,
 };
 
 export default connect(
@@ -64,7 +75,7 @@ const TodoContainer = styled.View`
   justify-content: space-between;
 `;
 
-const TodoItem = styled.View`
+const TodoItem = styled.TouchableOpacity`
   width: 172px;
   height: 100px;
   margin: 5px;
@@ -82,7 +93,7 @@ const TodoText = styled.Text`
   text-decoration-color: #999;
 `;
 
-const IconWarp = styled.View`
+const IconWarp = styled.TouchableOpacity`
   position: absolute;
   right: -2px;
   bottom: -2px;
