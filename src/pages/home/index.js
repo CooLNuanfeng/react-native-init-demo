@@ -59,7 +59,7 @@ export default class Home extends React.PureComponent {
     return (
       <HomeContainer>
         <HeaderTop />
-        <TabContainer {...this.props} />
+        <TabContainer style={{flex: 1}} {...this.props} />
       </HomeContainer>
     );
   }

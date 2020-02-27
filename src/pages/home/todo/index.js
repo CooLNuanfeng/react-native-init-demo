@@ -20,7 +20,7 @@ class Todos extends PureComponent {
     let {todos} = this.props.todos;
 
     return (
-      <ScrollView>
+      <ScrollView style={{flex: 1}}>
         <AddTodo doAdd={this.props.addTodoAction} />
         <TodoContainer>
           {todos.map(item => {
